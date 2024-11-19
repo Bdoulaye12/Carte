@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+  <path id="senegal" d="M..." fill="green" onclick="showDetails('Sénégal')" />
+  <path id="mali" d="M..." fill="green" onclick="showDetails('Mali')" />
+  <path id="egypt" d="M..." fill="blue" onclick="showDetails('Égypte')" />
+</svg>
+
+<script>
+  function showDetails(country) {
+    const data = {
+      Sénégal: "Loi dédiée et autorité établie.",
+      Mali: "Loi dédiée et autorité établie.",
+      Égypte: "Loi dédiée uniquement."
+    };
+    alert(`Pays : ${country}\nStatut : ${data[country] || "Données non disponibles."}`);
+  }
+</script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<div id="map" style="height: 500px;"></div>
+<script>
+  const map = L.map('map').setView([9, 20], 3); // Centre sur l'Afrique
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+  const countries = {
+    Sénégal: [14.4974, -14.4524],
+    Égypte: [26.8206, 30.8025]
+  };
+
+  for (const [country, coords] of Object.entries(countries)) {
+    L.marker(coords).addTo(map).bindPopup(`<b>${country}</b><br>Statut : Loi dédiée.`);
+  }
+</script>
